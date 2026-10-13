@@ -1,8 +1,11 @@
+import EditNoteCard from "../components/EditNoteCard"
+import EditNoteNav from "../components/EditNoteNav"
 
 const EditNote = () => {
   return (
     <div>
-      Edit Note
+      <EditNoteNav/>
+      <EditNoteCard/>
     </div>
   )
 }

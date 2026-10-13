@@ -15,7 +15,6 @@ const CreateNoteCard = () => {
     try {
       setIsLoading(true)
       const note = await axios.post('/api/notes', { title, details })
-
       dispatch({ type: 'CREATE_NOTE', payload: note.data })
       toast.success('Note created successfully')
       navigate('/')
@@ -47,18 +46,19 @@ const CreateNoteCard = () => {
       />
 
       <label htmlFor="details">details:</label>
-      <input
+      <textarea
         id="details"
         required
+        rows={10}
         value={details}
         onChange={(e) => setDetails(e.target.value)}
-        className="input focus:border-neutral-content outline-none mt-1 mb-3 w-full" placeholder="e.g I want to run a few errands..."
+        className="input focus:border-neutral-content outline-none mt-1 mb-3 w-full max-h-64 h-max" placeholder="e.g I want to run a few errands..."
       />
 
       <div className="flex justify-end">
         <button
           disabled={isLoading}
-          className="btn mt-5 w-30 text-neutral-content bg-info-content border-neutral-content">
+          className="btn mt-5 w-fit text-neutral-content bg-info-content border-neutral-content">
           {isLoading ? 'Saving note...' : 'Save Note'}
         </button>
       </div>
