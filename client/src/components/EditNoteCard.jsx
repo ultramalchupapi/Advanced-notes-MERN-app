@@ -22,7 +22,7 @@ const EditNoteCard = () => {
             fetchNote()
         } catch (error) {
             console.log(error)
-        } 
+        }
 
     }, [])
 
@@ -54,6 +54,7 @@ const EditNoteCard = () => {
                 e.preventDefault()
                 submitNote()
             }}>
+
             <h1 className="text-3xl font-bold text-center tracking-tight text-neutral-content pb-4">Edit Note</h1>
 
                 <div>
@@ -84,7 +85,6 @@ const EditNoteCard = () => {
                         </button>
                     </div>
                 </div>
-            
 
         </form>
     )

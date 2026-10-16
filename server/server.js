@@ -6,11 +6,13 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 dotenv.config()
 const noteRoutes = require('./routes/notes.routes')
+const authRoutes = require('./routes/user.routes')
 
 const app = express()
 
 app.use(express.json())
 app.use('/api/notes', noteRoutes)
+app.use('/api/user', authRoutes)
 
 const MONGO_URI = process.env.MONGO_URI
 const PORT = process.env.PORT 

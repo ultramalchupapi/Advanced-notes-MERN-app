@@ -35,8 +35,9 @@ const EditNoteNav = () => {
             <Link to="/" className="flex btn btn-outline text-neutral-content border-neutral-content"><ArrowLeft /> Back to notes</Link>
             <button className="btn btn-error" onClick={deleteNote} disabled={isLoading}>
                 {isLoading 
-                ? (<><span className="loading loading-spinner text-white" /> Deleting... </>) 
-                : (<><Trash /> Delete Note</>)} 
+                    ? (<><span className="loading loading-spinner text-white" /> Deleting... </>) 
+                    : (<><Trash /> Delete Note</>)
+                } 
             </button>
         </nav>
     )
