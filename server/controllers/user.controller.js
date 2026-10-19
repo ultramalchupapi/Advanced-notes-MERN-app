@@ -7,7 +7,7 @@ const signup = async (req, res) => {
 
     try {
         const user = await User.signup(email, password)
-        const token = await jwt.sign(user.email, process.env.SECRET)
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET)
 
         res.status(200).json({user: user.email, token})
     } catch (error) {
@@ -24,7 +24,7 @@ const login = async (req, res) => {
         throw Error('Fill in all fields')
         }
         const user = await User.login(email, password)
-        const token = await jwt.sign(user.email, process.env.SECRET)
+        const token = jwt.sign({ _id: user._id }, process.env.SECRET)
         res.status(200).json({user: user.email, token})
     }catch(error){
         res.status(400).json({error: error.message})
