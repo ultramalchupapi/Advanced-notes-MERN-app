@@ -4,7 +4,7 @@ import NoNotes from "../components/NoNotes"
 
 const Home = ({notes, isLoading}) => {
   return (
-    <div className="relative">
+    <div className="relative ">
         <NavBar/>
         <main className="mx-auto mt-6 grid w-full xl:max-w-7xl grid-cols-1 justify-items-center gap-4 md:max-w-4xl px-4 md:grid-cols-2 xl:grid-cols-3">   
             {isLoading && <span className="loading loading-spinner loading-sm"></span>}
