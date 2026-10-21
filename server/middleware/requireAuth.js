@@ -2,24 +2,26 @@ const jwt = require('jsonwebtoken')
 const User = require('../model/user.model')
 
 const requireAuth = async (req, res, next) => {
-  // verify user is authenticated
   const { authorization } = req.headers
 
   if (!authorization) {
-    return res.status(401).json({error: 'Authorization token required'})
+    return res.status(401).json({ error: 'Authorization token required' })
   }
 
-  const token = authorization.split(' ')[1]
+  const [scheme, token] = authorization.split(' ')
+  if (scheme !== 'Bearer' || !token) {
+    return res.status(401).json({ error: 'A valid Bearer token is required' })
+  }
 
   try {
-    const { _id } = await jwt.verify(token, process.env.SECRET)
-
+    const { _id } = jwt.verify(token, process.env.SECRET)
     req.user = await User.findById(_id).select('_id')
+    if (!req.user) {
+      return res.status(401).json({ error: 'Request is not authorized' })
+    }
     next()
-
   } catch (error) {
-    console.log(error)
-    res.status(401).json({error: 'Request is not authorized'})
+    res.status(401).json({ error: 'Request is not authorized' })
   }
 }
 

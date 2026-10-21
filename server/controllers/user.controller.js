@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
 const signup = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.body || {}
 
     try {
         const user = await User.signup(email, password)
@@ -17,7 +17,7 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    const {email, password} = req.body
+    const { email, password } = req.body || {}
 
     try{
         if(!email || !password){

@@ -1,6 +1,5 @@
-import { createContext, useReducer } from "react"
-
-export const NotesContext = createContext()
+import { useReducer } from "react"
+import { NotesContext } from "./notesContext"
 
 const notesReducer = (state, action) => {
   switch (action.type) {
@@ -11,6 +10,12 @@ const notesReducer = (state, action) => {
     case 'CREATE_NOTE': return {
       notes : [action.payload, ...state.notes]
     }
+    case 'UPDATE_NOTE':
+      return {
+        notes: state.notes.map((note) =>
+          note._id === action.payload._id ? action.payload : note
+        )
+      }
     case 'DELETE_NOTE':
       return {
         notes: state.notes.filter((note) => note._id !== action.payload._id)

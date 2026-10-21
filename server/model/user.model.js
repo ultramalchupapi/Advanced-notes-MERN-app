@@ -15,19 +15,15 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 userSchema.statics.signup = async function (email, password) {
-    if(!email || !password){
+    if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password) {
         throw Error('Fill in all fields')
     }
 
+    email = email.trim().toLowerCase()
     const exist = await this.findOne({ email })
 
     if (exist) {
         throw Error('Email already exists')
-        return
-    }
-
-    if (!email.trim || !password.trim) {
-        throw Error('Fill in all fields')
     }
 
     if (!validator.isEmail(email)) {
@@ -52,11 +48,12 @@ userSchema.statics.signup = async function (email, password) {
 }
 
 userSchema.statics.login = async function (email, password) {
-    if (!email.trim || !password.trim) {
+    if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password) {
         throw Error('Fill in all fields')
     }
 
-    const user = await this.findOne({ email: email })
+    email = email.trim().toLowerCase()
+    const user = await this.findOne({ email })
 
     if (!user) {
         throw Error("Email doesn't exist")

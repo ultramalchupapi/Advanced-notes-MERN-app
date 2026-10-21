@@ -1,12 +1,8 @@
-import axios from "axios"
+import api from "./api"
 
 const createNote = async ({title, details}) => {
-    try {
-      const note = await axios.post('/api/notes', { title, details })
-      return note
-    } catch (error) {
-      console.log(error)
-    }
+    const { data } = await api.post('/api/notes', { title, details })
+    return data
 }
 
 export default createNote

@@ -9,8 +9,12 @@ const createNote = async (req, res) => {
     const user_id = req.user._id
 
     try {
-        const note = await Note.create({ ...req.body, user_id: user_id })
-        res.status(200).json(note)
+        const note = await Note.create({
+            title: req.body.title,
+            details: req.body.details,
+            user_id: user_id
+        })
+        res.status(201).json(note)
     } catch (error) {
         console.log(error.message)
         res.status(400).json({ error: error.message })
@@ -71,10 +75,11 @@ const updateNote = async (req, res) => {
             throw Error('Invalid notes ID')
         }
 
+        const { title, details } = req.body
         const note = await Note.findOneAndUpdate(
             { _id: id, user_id },
-            { ...req.body },
-            { new: true }
+            { title, details },
+            { new: true, runValidators: true }
         )
 
         if(!note){
